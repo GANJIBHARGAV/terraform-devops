@@ -6,7 +6,13 @@ resource "aws_instance" "roboshop" {
   tags = {
     Name = "HelloWorld"
   }
+  provisioner "local-exec" {
+    command = "echo ${self.private_ip} > inventory"
+    #on_failure = continue #ignoring errors
+  }
 }
+
+
 
 resource "aws_security_group" "allow_all" {
   name        = "allow_all"
